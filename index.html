@@ -1,1 +1,794 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>KaufKompass – Gute Produkte. Einfach gefunden.</title>
+
+  <meta name="description"
+        content="KaufKompass zeigt dir interessante Produkte, Empfehlungen und Geschenkideen.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f8fa;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* NAVIGATION */
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      max-width: 1150px;
+      margin: auto;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .logo span {
+      color: #ff7a00;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    nav a:hover {
+      color: #ff7a00;
+    }
+
+    /* HERO */
+
+    .hero {
+      background: linear-gradient(135deg, #fff4e8, #f5f7ff);
+      padding: 90px 25px;
+    }
+
+    .hero-content {
+      max-width: 1150px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .small-title {
+      color: #ff7a00;
+      font-weight: 800;
+      letter-spacing: 2px;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1.05;
+      margin-bottom: 25px;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: #5c6678;
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #ff7a00;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background: #e96700;
+      transform: translateY(-2px);
+    }
+
+    .hero-box {
+      background: white;
+      padding: 35px;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(30, 40, 60, 0.12);
+      text-align: center;
+    }
+
+    .hero-box .emoji {
+      font-size: 70px;
+      margin-bottom: 15px;
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 80px 25px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .section-description {
+      color: #667085;
+      margin-bottom: 35px;
+    }
+
+    /* KATEGORIEN */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .category {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 18px;
+      border: 1px solid #e6e8ed;
+      font-size: 18px;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(30, 40, 60, 0.08);
+    }
+
+    /* PRODUKTE */
+
+    .products-section {
+      background: #eef1f5;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid #e4e7ec;
+      overflow: hidden;
+    }
+
+    .product-image {
+      height: 220px;
+      border-radius: 15px;
+      background: #f1f3f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+
+    .tag {
+      color: #ff7a00;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .product h3 {
+      font-size: 23px;
+      margin: 7px 0;
+    }
+
+    .product p {
+      color: #667085;
+      margin-bottom: 15px;
+    }
+
+    .amazon-button {
+      display: inline-block;
+      background: #ff9900;
+      color: #111;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .amazon-button:hover {
+      background: #ffb13b;
+    }
+
+    /* ÜBER UNS */
+
+    .about {
+      max-width: 800px;
+    }
+
+    .about p {
+      color: #5c6678;
+      font-size: 18px;
+    }
+
+    /* AFFILIATE */
+
+    .affiliate {
+      background: #fff4e8;
+      border-top: 1px solid #ffe0c2;
+      border-bottom: 1px solid #ffe0c2;
+    }
+
+    .affiliate p {
+      color: #5c6678;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #172033;
+      color: white;
+      padding: 50px 25px 25px;
+    }
+
+    .footer-content {
+      max-width: 1150px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: #d1d5db;
+    }
+
+    .copyright {
+      max-width: 1150px;
+      margin: 35px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #374151;
+      color: #9ca3af;
+      font-size: 14px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      nav {
+        display: none;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+      }
+
+      .categories {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .categories {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 55px 20px;
+      }
+
+      .hero {
+        padding: 60px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+
+<header>
+  <div class="nav">
+
+    <a href="#" class="logo">
+      Kauf<span>Kompass</span>
+    </a>
+
+    <nav>
+      <a href="#kategorien">Kategorien</a>
+      <a href="#produkte">Produkte</a>
+      <a href="#ueber-uns">Über uns</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div>
+
+      <div class="small-title">
+        PRODUKTE • TIPPS • VERGLEICHE
+      </div>
+
+      <h1>
+        Gute Produkte.<br>
+        Einfach gefunden.
+      </h1>
+
+      <p>
+        KaufKompass hilft dir dabei, interessante Produkte
+        zu entdecken und verschiedene Kaufmöglichkeiten
+        übersichtlich kennenzulernen.
+      </p>
+
+      <a href="#produkte" class="button">
+        Produkte entdecken
+      </a>
+
+    </div>
+
+
+    <div class="hero-box">
+
+      <div class="emoji">
+        🛍️
+      </div>
+
+      <h2>
+        Dein KaufKompass
+      </h2>
+
+      <p>
+        Empfehlungen, Produktideen und praktische Tipps
+        an einem Ort.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- KATEGORIEN -->
+
+<section id="kategorien">
+
+  <div class="container">
+
+    <div class="small-title">
+      ENTDECKEN
+    </div>
+
+    <h2 class="section-title">
+      Kategorien
+    </h2>
+
+    <p class="section-description">
+      Entdecke Produkte aus verschiedenen Bereichen.
+    </p>
+
+
+    <div class="categories">
+
+      <a href="#produkte" class="category">
+        🎧 Technik
+      </a>
+
+      <a href="#produkte" class="category">
+        🏠 Haushalt
+      </a>
+
+      <a href="#produkte" class="category">
+        🏃 Sport
+      </a>
+
+      <a href="#produkte" class="category">
+        🎁 Geschenkideen
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PRODUKTE -->
+
+<section id="produkte" class="products-section">
+
+  <div class="container">
+
+    <div class="small-title">
+      UNSERE EMPFEHLUNGEN
+    </div>
+
+    <h2 class="section-title">
+      Interessante Produkte
+    </h2>
+
+    <p class="section-description">
+      Hier kannst du später deine eigenen Produktbeschreibungen
+      und Amazon-Partnerlinks eintragen.
+    </p>
+
+
+    <div class="products">
+
+
+      <!-- PRODUKT 1 -->
+
+      <article class="product">
+
+        <div class="product-image">
+          🎧
+        </div>
+
+        <div class="tag">
+          Technik
+        </div>
+
+        <h3>
+          Beispiel-Kopfhörer
+        </h3>
+
+        <p>
+          Hier kommt deine eigene Beschreibung des Produkts hin.
+          Erkläre, was das Produkt kann und für wen es interessant ist.
+        </p>
+
+        <a
+          href="DEIN-AMAZON-LINK"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          class="amazon-button">
+
+          Bei Amazon ansehen →
+
+        </a>
+
+      </article>
+
+
+      <!-- PRODUKT 2 -->
+
+      <article class="product">
+
+        <div class="product-image">
+          📱
+        </div>
+
+        <div class="tag">
+          Technik
+        </div>
+
+        <h3>
+          Beispiel-Gadget
+        </h3>
+
+        <p>
+          Beschreibe hier die wichtigsten Eigenschaften,
+          Vorteile und Besonderheiten des Produkts.
+        </p>
+
+        <a
+          href="DEIN-AMAZON-LINK"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          class="amazon-button">
+
+          Bei Amazon ansehen →
+
+        </a>
+
+      </article>
+
+
+      <!-- PRODUKT 3 -->
+
+      <article class="product">
+
+        <div class="product-image">
+          🏠
+        </div>
+
+        <div class="tag">
+          Haushalt
+        </div>
+
+        <h3>
+          Beispiel-Haushaltsprodukt
+        </h3>
+
+        <p>
+          Schreibe hier deine eigene Einschätzung und
+          erkläre, warum Besucher das Produkt interessant finden könnten.
+        </p>
+
+        <a
+          href="DEIN-AMAZON-LINK"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          class="amazon-button">
+
+          Bei Amazon ansehen →
+
+        </a>
+
+      </article>
+
+
+      <!-- PRODUKT 4 -->
+
+      <article class="product">
+
+        <div class="product-image">
+          🏋️
+        </div>
+
+        <div class="tag">
+          Sport
+        </div>
+
+        <h3>
+          Beispiel-Sportprodukt
+        </h3>
+
+        <p>
+          Hier kannst du das Produkt vorstellen und
+          praktische Einsatzmöglichkeiten erklären.
+        </p>
+
+        <a
+          href="DEIN-AMAZON-LINK"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          class="amazon-button">
+
+          Bei Amazon ansehen →
+
+        </a>
+
+      </article>
+
+
+      <!-- PRODUKT 5 -->
+
+      <article class="product">
+
+        <div class="product-image">
+          🎮
+        </div>
+
+        <div class="tag">
+          Gaming
+        </div>
+
+        <h3>
+          Beispiel-Gamingprodukt
+        </h3>
+
+        <p>
+          Stelle hier dein Produkt mit einer eigenen
+          Beschreibung und deinen persönlichen Informationen vor.
+        </p>
+
+        <a
+          href="DEIN-AMAZON-LINK"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          class="amazon-button">
+
+          Bei Amazon ansehen →
+
+        </a>
+
+      </article>
+
+
+      <!-- PRODUKT 6 -->
+
+      <article class="product">
+
+        <div class="product-image">
+          🎁
+        </div>
+
+        <div class="tag">
+          Geschenkideen
+        </div>
+
+        <h3>
+          Geschenkidee
+        </h3>
+
+        <p>
+          Beschreibe, für wen das Produkt geeignet ist
+          und zu welchem Anlass es passen könnte.
+        </p>
+
+        <a
+          href="DEIN-AMAZON-LINK"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+          class="amazon-button">
+
+          Bei Amazon ansehen →
+
+        </a>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ÜBER UNS -->
+
+<section id="ueber-uns">
+
+  <div class="container about">
+
+    <div class="small-title">
+      ÜBER KAUFKOMPASS
+    </div>
+
+    <h2 class="section-title">
+      Produkte einfacher entdecken
+    </h2>
+
+    <p>
+      KaufKompass stellt interessante Produkte vor und
+      hilft Besuchern dabei, sich einen Überblick zu verschaffen.
+      Die Produktbeschreibungen auf dieser Website sollten
+      eigene, hilfreiche Inhalte enthalten.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- AFFILIATE-HINWEIS -->
+
+<section class="affiliate">
+
+  <div class="container">
+
+    <h2>
+      Affiliate-Hinweis
+    </h2>
+
+    <p>
+      KaufKompass nimmt am Amazon Partnerprogramm teil.
+      Als Amazon-Partner verdiene ich an qualifizierten Verkäufen.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="footer-content">
+
+    <div>
+
+      <h2>
+        KaufKompass
+      </h2>
+
+      <p>
+        Gute Produkte. Einfach gefunden.
+      </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <a href="#">
+        Impressum
+      </a>
+
+      <a href="#">
+        Datenschutz
+      </a>
+
+      <a href="#">
+        Affiliate-Hinweis
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="copyright">
+
+    © 2026 KaufKompass – Alle Rechte vorbehalten.
+
+  </div>
+
+</footer>
+
+</body>
+</html>
